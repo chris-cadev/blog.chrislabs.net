@@ -78,15 +78,27 @@ export function initUmami(): void {
   if (injected) return;
   const body = document.body;
   const scriptUrl = body?.getAttribute("data-umami-script");
+  const recorderUrl = body?.getAttribute("data-umami-recorder");
   const websiteId = body?.getAttribute("data-umami-website-id");
   if (!scriptUrl || !websiteId) return;
   injected = true;
 
   const el = document.createElement("script");
   el.async = true;
+  el.defer = true;
   el.src = scriptUrl;
   el.setAttribute("data-website-id", websiteId);
+  el.setAttribute("data-do-not-track", "true");
   document.head.appendChild(el);
+
+  if (recorderUrl) {
+    const rec = document.createElement("script");
+    rec.defer = true;
+    rec.src = recorderUrl;
+    rec.setAttribute("data-website-id", websiteId);
+    rec.setAttribute("data-mask-level", "moderate");
+    document.head.appendChild(rec);
+  }
 
   window.trackUmami = trackUmami;
 }

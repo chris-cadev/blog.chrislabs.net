@@ -6,6 +6,7 @@ import blog_chat.features.posts.routes as posts_routes
 import logging
 UMAMI_HOST = "latitudem2m-analytics.chrislabs.net"
 UMAMI_SCRIPT_URL = "https://latitudem2m-analytics.chrislabs.net/script.js"
+UMAMI_RECORDER_URL = "https://latitudem2m-analytics.chrislabs.net/recorder.js"
 UMAMI_WEBSITE_ID = "057c4459-7212-4f49-a756-bc631a5c5e94"
 
 
@@ -46,6 +47,7 @@ class TestPageInjection:
             page = client.get("/en/firstcommit")
         assert page.status_code == 200
         assert f"data-umami-script={UMAMI_SCRIPT_URL}" in page.text
+        assert f"data-umami-recorder={UMAMI_RECORDER_URL}" in page.text
         assert f"data-umami-website-id={UMAMI_WEBSITE_ID}" in page.text
 
     def test_no_external_script_in_head(self, monkeypatch):
@@ -59,6 +61,7 @@ class TestPageInjection:
         with TestClient(app_module.app) as client:
             page = client.get("/en/firstcommit")
         assert "data-umami-script" not in page.text
+        assert "data-umami-recorder" not in page.text
         assert "data-umami-website-id" not in page.text
         assert "latitudem2m-analytics.chrislabs.net" not in page.text
 

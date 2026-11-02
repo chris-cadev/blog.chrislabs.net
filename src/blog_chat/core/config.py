@@ -36,9 +36,16 @@ UMAMI_SCRIPT_URL = os.environ.get(
     "UMAMI_SCRIPT_URL",
     "https://latitudem2m-analytics.chrislabs.net/script.js",
 )
+UMAMI_RECORDER_URL = os.environ.get(
+    "UMAMI_RECORDER_URL",
+    "https://latitudem2m-analytics.chrislabs.net/recorder.js",
+)
 UMAMI_WEBSITE_ID = os.environ.get("UMAMI_WEBSITE_ID", "")
 
 UMAMI_HOST = ""
 if UMAMI_SCRIPT_URL:
     UMAMI_HOST = urlparse(UMAMI_SCRIPT_URL).netloc
+UMAMI_RECORDER_HOST = ""
+if UMAMI_RECORDER_URL:
+    UMAMI_RECORDER_HOST = urlparse(UMAMI_RECORDER_URL).netloc
 UMAMI_ACTIVE = UMAMI_ENABLED and bool(UMAMI_WEBSITE_ID)

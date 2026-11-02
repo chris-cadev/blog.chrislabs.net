@@ -20,7 +20,7 @@ from blog_chat.core.i18n import (
 )
 from blog_chat.core.logging import log_business_event
 from blog_chat.core.responses import create_templates
-from blog_chat.core.config import SITE_URL, UMAMI_ACTIVE, UMAMI_SCRIPT_URL, UMAMI_WEBSITE_ID
+from blog_chat.core.config import SITE_URL, UMAMI_ACTIVE, UMAMI_RECORDER_URL, UMAMI_SCRIPT_URL, UMAMI_WEBSITE_ID
 import uuid as _uuid
 
 from blog_chat.features.accounts.services import (
@@ -223,6 +223,7 @@ def _context(request: Request, lang: str | None, **extra) -> dict:
     ctx["umami"] = {
         "enabled": UMAMI_ACTIVE,
         "script_url": UMAMI_SCRIPT_URL,
+        "recorder_url": UMAMI_RECORDER_URL,
         "website_id": UMAMI_WEBSITE_ID,
     }
     ctx["site_schema_json"] = to_jsonld(website_schema())

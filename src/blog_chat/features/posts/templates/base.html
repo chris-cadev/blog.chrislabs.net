@@ -30,7 +30,7 @@
     {% block styles %}{% endblock %}
 </head>
 <body data-room="{{ room|default('offtopic') }}" data-lang="{{ lang or 'en' }}"
-    {% if umami.enabled %}data-umami-script="{{ umami.script_url }}" data-umami-website-id="{{ umami.website_id }}"{% endif %}>
+    {% if umami.enabled %}data-umami-script="{{ umami.script_url }}" data-umami-recorder="{{ umami.recorder_url }}" data-umami-website-id="{{ umami.website_id }}"{% endif %}>
     <header class="site-header">
         <div class="header-inner">
             <a href="/{{ lang or 'en' }}/" class="site-logo">chrislabs</a>

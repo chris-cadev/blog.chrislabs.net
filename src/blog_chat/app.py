@@ -13,7 +13,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.gzip import GZipMiddleware
 from fastapi import FastAPI, Request
 from starlette.exceptions import HTTPException as StarletteHTTPException
-from blog_chat.core.config import APP_ENV, UMAMI_ACTIVE, UMAMI_HOST
+from blog_chat.core.config import APP_ENV, UMAMI_ACTIVE, UMAMI_HOST, UMAMI_RECORDER_HOST
 from blog_chat.core.database import init_db
 from blog_chat.core.logging import configure_logging, get_logger
 from blog_chat.core.responses import create_templates
@@ -52,9 +52,12 @@ def build_csp(nonce: str) -> str:
     script_src = f"'self' 'nonce-{nonce}'"
     connect_src = "'self' wss: ws:"
     if UMAMI_ACTIVE and UMAMI_HOST:
-        umami_origin = f"https://{UMAMI_HOST}"
-        script_src = f"'self' 'nonce-{nonce}' {umami_origin}"
-        connect_src = f"'self' wss: ws: {umami_origin}"
+        origins = {f"https://{UMAMI_HOST}"}
+        if UMAMI_RECORDER_HOST and UMAMI_RECORDER_HOST != UMAMI_HOST:
+            origins.add(f"https://{UMAMI_RECORDER_HOST}")
+        origin_src = " ".join(sorted(origins))
+        script_src = f"'self' 'nonce-{nonce}' {origin_src}"
+        connect_src = f"'self' wss: ws: {origin_src}"
     return CSP_TEMPLATE.format(
         nonce=nonce,
         script_src=script_src,
