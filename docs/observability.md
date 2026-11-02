@@ -223,7 +223,10 @@ Files you'll touch:
 | `LOG_FORMAT`       | `console` (dev) / `json` (prod)              | Output shape.                             |
 | `UMAMI_ENABLED`    | `true`                                       | Master switch for the tracker.            |
 | `UMAMI_SCRIPT_URL` | `https://latitudem2m-analytics.chrislabs.net/script.js` | Tracker location.        |
+| `UMAMI_RECORDER_URL` | `https://latitudem2m-analytics.chrislabs.net/recorder.js` | Replay/heatmap recorder location. |
 | `UMAMI_WEBSITE_ID` | *(empty)*                                    | Umami site ID; analytics activates only when this is set. |
+
+Dashboard per website: enable **Replays & Heatmaps** (sample rate `0.15`, mask `moderate`, block `.chat-panel, .sensitive`). Replays retained 30 days. Recorder loads via `data-umami-recorder` alongside `data-umami-script` (see `core/client/umami.ts:initUmami`).
 
 Note: when analytics is active, the app's Content-Security-Policy is extended so the browser may
 load the tracker script and beacon events back to the Umami host (`script-src` and `connect-src`).

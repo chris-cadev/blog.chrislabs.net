@@ -140,6 +140,39 @@ docker run -p 9091:9091 blog-chat
 docker-compose up -d
 ```
 
+## Production analytics (Umami)
+
+Standard connection between this site and self-hosted Umami. Same procedure
+for every property; only the website entry and env values differ.
+
+**1. Umami side (dashboard, once per site).** Add a website (name `blog`,
+URL `https://blog.chrislabs.net`) and copy its Website ID. Per website,
+enable **Replays & Heatmaps**: sample rate `0.15`, mask `moderate`, block
+`.chat-panel, .sensitive`, retention 30 days. Confirm the host answers:
+`curl -I https://latitudem2m-analytics.chrislabs.net/script.js` and
+`.../recorder.js` → `200` with a JavaScript content type.
+
+**2. Server env.** This site reads analytics at runtime from `.env`
+(no rebuild needed to rotate ID or host):
+
+```bash
+UMAMI_ENABLED="true"
+UMAMI_SCRIPT_URL="https://latitudem2m-analytics.chrislabs.net/script.js"
+UMAMI_RECORDER_URL="https://latitudem2m-analytics.chrislabs.net/recorder.js"
+UMAMI_WEBSITE_ID="<blog-site-id>"
+```
+
+`compose.yaml` passes `.env` into the container (`env_file`), so
+`mise deploy` picks it up. Empty ID or `UMAMI_ENABLED=false` renders no
+`data-umami-*` attributes and the CSP omits the Umami origin (see
+`docs/observability.md` § env table for the full reference).
+
+**3. Verify.** After deploy: trigger a pageview + a chat message, then check
+Umami Realtime (events appear under the blog entry), Replays (a sampled
+session is listed), and the container logs (no CSP violations, no
+`[umami]` send failures). With analytics disabled, view-source shows no
+`data-umami-*` and no Umami host strings.
+
 ## Database
 
 ### SQLite (Development)
