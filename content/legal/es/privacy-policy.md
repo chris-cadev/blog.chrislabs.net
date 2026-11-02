@@ -43,6 +43,8 @@ Los mensajes que envías al chat público son públicos por diseño. Pueden ser 
 
 Este sitio usa Umami Analytics, una alternativa enfocada en privacidad a Google Analytics. Umami no usa cookies y no recopila información personal identificable.
 
+Las repeticiones de sesión y mapas de calor están habilitados por muestreo (15% por defecto). Las repeticiones enmascaran formularios, excluyen elementos sensibles y se conservan 30 días. No se graba en localhost ni con Do-Not-Track.
+
 ## Cambios
 
 Si esta política cambio, actualizaré esta página. Última actualización: septiembre 2026.

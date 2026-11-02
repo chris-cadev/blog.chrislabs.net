@@ -43,6 +43,8 @@ Les messages que vous envoyez au chat public sont publics par conception. Ils pe
 
 Ce site utilise Umami Analytics, une alternative axée sur la confidentialité à Google Analytics. Umami n'utilise pas de cookies et ne collecte pas d'informations personnellement identifiables.
 
+Les replays de session et heatmaps sont activés par échantillonnage (15% par défaut). Les replays masquent les champs, excluent les éléments sensibles et sont conservés 30 jours. Aucun enregistrement sur localhost ni avec Do-Not-Track.
+
 ## Changements
 
 Si cette politique change, je mettrai à jour cette page. Dernière mise à jour : septembre 2026.

@@ -43,6 +43,8 @@ Messages you send to the public chat are public by design. They may be visible t
 
 This site uses Umami Analytics, a privacy-focused alternative to Google Analytics. Umami does not use cookies and does not collect personally identifiable information.
 
+Session replays and heatmaps are enabled on a sampled basis (default 15% of sessions). Replays mask form inputs by default, exclude elements marked sensitive, and are retained for 30 days. No replay is recorded on localhost or when Do-Not-Track is set.
+
 ## Changes
 
 If this policy changes, I'll update this page. Last updated: September 2026.
